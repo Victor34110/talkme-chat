@@ -1,9 +1,27 @@
-![Logo](./apps/front/public/logoTalkme.png)
 
-# 💬 TalkMe — Plateforme de chat en ligne
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0e75b6&height=170&section=header&text=TalkMe%20-%20Plateforme%20de%20Chat&fontSize=36&fontColor=ffffff&animation=fadeIn" />
+</p>
 
-Ce site web est un projet réalisée dans le cadre de nos études de **pré-MSc**.
-Durant deux semaines, nous avons développé une plateforme permettant de discuter via dans différents serveurs/channels cia une interface simple
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-Frontend-black?style=for-the-badge&logo=next.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/NestJS-Backend-e0234e?style=for-the-badge&logo=nestjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Socket.io-Realtime-010101?style=for-the-badge&logo=socket.io&logoColor=white" />
+</p>
+
+---
+
+<div align="center">
+  <img src="./apps/front/public/screen-hero.png" alt="TalkMe logo" width="300" />
+  <img src="./apps/front/public/screen-register.png" alt="TalkMe logo" width="220" />
+</div>
+
+<br />
+
+**TalkMe** est une plateforme de chat en ligne inspirée de Discord, développée dans le cadre du **pré-MSc Epitech**.  
+Le projet permet de communiquer en temps réel au sein de **serveurs** et **channels**, avec une architecture full‑stack moderne.
+
 ---
 
 ## 📑 Sommaire
@@ -13,17 +31,19 @@ Durant deux semaines, nous avons développé une plateforme permettant de discut
 * [Technologies utilisées](#-technologies-utilisées)
 * [Installation](#-installation)
 * [Utilisation](#-utilisation)
+* [Authentication](#-Authentication)
 * [Contributeurs](#-contributeurs)
 
 ---
 
 ## ⚙️ Fonctionnalités
 
-- Créer un compte permettant de sidentifier et garder un historique de nos conversations.s
-- Créer des serveur afin de trier les conversations.
-- Créer des channels afin de discuter de différents thèmes dans un même serveur.
-- Ajouter des membres aux channels.
-- Discuter avec ses membres.
+- Créer un compte permettant de s’identifier et de conserver un historique des conversations
+- Créer des serveurs afin d’organiser les échanges
+- Créer des channels pour discuter de différents thèmes dans un même serveur
+- Ajouter des membres aux channels
+- Discuter en temps réel avec les membres
+
 ---
 
 ## 🏗️ Architecture
@@ -73,43 +93,42 @@ Durant deux semaines, nous avons développé une plateforme permettant de discut
 ## 🧰 Technologies utilisées
 
 ### 🎨 Frontend
-
-* React
-* NextJs
-* TailwindCSS
-* socket.io-client
+- React
+- Next.js
+- TailwindCSS
+- Socket.io-client
 
 ### ⚙️ Backend
-
-* NestJs
-* PostgreSQL
-* Better Auth
-* socket.io
-* prisma
+- NestJS
+- PostgreSQL
+- Prisma
+- Better Auth
+- Socket.io
 
 ### 🧪 Outils
-
-* Supabase
-* TurboRepo
-* Postman
+- TurboRepo
+- Supabase
+- Postman
 
 ---
 
+
 ## 🧩 Installation
 
-### 1️⃣ Cloner le dépôt et installer les dependance
+### 1️⃣ Cloner le dépôt et installer les dépendances
 
 ```bash
 git clone https://github.com/EpitechMscProPromo2028/T-JSF-600-MPL_11.git
 cd T-JSF-600-MPL_11
-pnpm i
+pnpm install
 ```
 
-### 2️⃣ créer la db et les table 
+### 2️⃣ Créer la base de données et les tables
+
 ```bash
 cd packages/type
 pnpx prisma generate
-pnpx db push
+pnpx prisma db push
 ```
 
 ### 3️⃣ Lancer le projet
@@ -118,14 +137,15 @@ pnpx db push
 turbo dev
 ```
 
-### 5️⃣ Configurer les variables d’environnement
+### 4️⃣ Configurer les variables d’environnement
 
-Créez un fichier `.env` à la racine du dossier **database** et ajoutez :
+Créer un fichier `.env` à la racine du dossier **database** :
 
 ```env
 DATABASE_URL=
 ```
-Créez un fichier `.env` à la racine du dossier **back** et ajoutez :
+
+Créer un fichier `.env` à la racine du dossier **back** :
 
 ```env
 LOCAL_FRONT_URL=
@@ -133,34 +153,92 @@ NETWORK_FRONT_URL=
 PORT=
 DATABASE_URL=
 ```
-Créez un fichier `.env.local` à la racine du dossier **front** et ajoutez :
+
+Créer un fichier `.env.local` à la racine du dossier **front** :
 
 ```env
 NEXT_PUBLIC_API_HTTP=
 ```
 
-➡️ Remplissez les champs selon votre configuration locale.
-
 ---
-
 
 ## 🚀 Utilisation
 
-Une fois les serveurs lancés :
-
-* Frontend : [http://localhost:3000](http://localhost:3000)
-* Backend : [http://localhost:3001](http://localhost:3001)
+- Frontend : http://localhost:3000
+- Backend : http://localhost:3001
 
 ---
 
+## 🔐 Authentication
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/auth/signup` | Create a new user account |
+| `POST` | `/auth/login` | Authenticate and get tokens |
+| `POST` | `/auth/logout` | Invalidate tokens |
+| `GET` | `/me` | Get current user information |
+
+### 🏘️ Servers (Communities / Guilds)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/servers` | Create a new server |
+| `GET` | `/servers` | List user's servers |
+| `GET` | `/servers/{id}` | Get server details |
+| `PUT` | `/servers/{id}` | Update server |
+| `DELETE` | `/servers/{id}` | Delete server |
+| `POST` | `/servers/{id}/join` | Join a server |
+| `DELETE` | `/servers/{id}/leave` | Leave a server |
+| `GET` | `/servers/{id}/members` | List server members |
+| `PUT` | `/servers/{id}/members/{userId}` | Update member role |
+
+### 💬 Channels
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/servers/{serverId}/channels` | Create a channel |
+| `GET` | `/servers/{serverId}/channels` | List server channels |
+| `GET` | `/channels/{id}` | Get channel details |
+| `PUT` | `/channels/{id}` | Update channel |
+| `DELETE` | `/channels/{id}` | Delete channel |
+| `POST` | `/channels/{id}/join` | Join a channel |
+| `DELETE` | `/channels/{id}/leave` | Leave a channel |
+
+### 📨 Messages
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/channels/{id}/messages` | Send a message |
+| `GET` | `/channels/{id}/messages` | Get channel message history |
+| `DELETE` | `/messages/{id}` | Delete message |
+
+---
+
+## 🔌 WebSocket (Socket.IO)
+
+Communication temps réel via **Socket.IO**.
+
+**Événements principaux :**
+- `joinRoom` – rejoindre un channel
+- `leaveRoom` – quitter un channel
+- `typing` – indicateur de saisie
+- `stopTyping` – fin de saisie
+- `chatToServer` – envoi d’un message
+- `messageUpdated` – modification d’un message
+- `messageDelete` – suppression d’un message
+
+
 ## 👥 Contributeurs
 
-| Nom               | Rôle        | Contact                                                     |
-| ----------------- | ----------- | ----------------------------------------------------------- |
-| **Tiffy Bastien** | Développeur | [bastien.tiffy@epitech.eu](mailto:bastien.tiffy@epitech.eu) |
-| **Delly Cyril**   | Développeur | [cyril.delly@epitech.eu](mailto:cyril.delly@epitech.eu)     |
-| **Galian Victor**   | Développeur | [victor.galian@epitech.eu](mailto:victor.galian@epitech.eu)     |
-| **Bousquet Louis**   | Développeur | [Louis.Bousquet@epitech.eu](mailto:Louis.Bousquet@epitech.eu)     |
+| Nom | Rôle |
+|----|----|
+| Victor Galian | Développeur |
+| Bastien Tiffy | Développeur |
+| Cyril Delly | Développeur |
+| Louis Bousquet | Développeur |
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+---
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0e75b6&height=120&section=footer" />
+</p>
