@@ -1,0 +1,37 @@
+{
+  "name": "T-JSF-600-MPL_11",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "test": "turbo run test --continue",
+    "test:coverage": "turbo run test -- --coverage"
+
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.1",
+    "@types/node": "^25.2.1",
+    "autoprefixer": "^10.4.23",
+    "madge": "^8.0.0",
+    "postcss": "^8.5.6",
+    "prettier": "^3.7.4",
+    "prisma": "^7.3.0",
+    "supabase": "^2.72.8",
+    "tailwindcss": "^4",
+    "turbo": "^2.7.6",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@nestjs/mapped-types": "*",
+    "@prisma/client": "^7.3.0",
+    "better-auth": "^1.4.18",
+    "next": "^16.1.6"
+  }
+}

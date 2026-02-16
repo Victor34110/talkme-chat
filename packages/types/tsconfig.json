@@ -1,0 +1,21 @@
+{
+    "extends": "@repo/typescript-config/base.json",
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist/src/",
+        "declaration": true,
+        "module": "CommonJS",
+        "target": "ES2021",
+        "moduleResolution": "node10",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "baseUrl": ".",
+        "paths": {
+          "@/": ["src/"]
+        }
+  },
+  "include": ["src/**/*", "dist/client/**/*"],
+  "exclude": ["node_modules"]
+}

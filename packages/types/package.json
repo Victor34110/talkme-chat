@@ -1,0 +1,49 @@
+{
+    "name": "@repo/types",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "build": "pnpm db:generate && pnpm exec tsc",
+        "dev": "pnpm exec tsc --watch",
+        "db:generate": "prisma generate",
+        "db:push": "prisma db push"
+    },
+    "main": "./dist/src/index.js",
+    "types": "./dist/src/index.d.ts",
+    "typesVersions": {
+        "*": {
+            "server": [
+                "./dist/src/server.d.ts"
+            ],
+            "*": [
+                "./dist/src/index.d.ts"
+            ]
+        }
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/src/index.d.ts",
+            "default": "./dist/src/index.js"
+        },
+        "./server": {
+            "types": "./dist/src/server.d.ts",
+            "default": "./dist/src/server.js"
+        },
+        "./prisma/client": {
+            "types": "./dist/client/client.d.ts",
+            "default": "./dist/client/client.js"
+        }
+    },
+    "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "dotenv": "^17.2.3",
+        "prisma": "^7.3.0",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "@prisma/client": "^7.3.0"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../generated"
+  moduleFormat    = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+  messages Message[]
+  mentions Mention[]
+  members Member[]
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+
+model Server {
+  server_id  Int      @id @default(autoincrement())
+  name       String   @db.VarChar(50)
+  created_at DateTime @default(now())
+
+  channels Channel[]
+  members  Member[]
+}
+
+model Channel {
+  channel_id Int      @id @default(autoincrement())
+  name       String   @db.VarChar(50)
+  server_id  Int?
+  created_at DateTime @default(now())
+
+  server   Server?         @relation(fields: [server_id], references: [server_id])
+  messages Message[]
+  members  MemberChannel[]
+}
+
+model Member {
+  member_id Int       @id @default(autoincrement())
+  server_id Int?
+  user_id   String?
+  name      String    @db.VarChar(50)
+  role      String    @db.VarChar(50)
+  ban       Boolean   @default(false)
+  unban     DateTime?
+  add_at    DateTime  @default(now())
+
+  server   Server?         @relation(fields: [server_id], references: [server_id])
+  user     User?           @relation(fields: [user_id], references: [id])
+  channels MemberChannel[]
+}
+
+model MemberChannel {
+  member_channel_id Int       @id @default(autoincrement())
+  channel_id        Int
+  member_id         Int
+  ban               Boolean   @default(false)
+  unban             DateTime?
+  add_at            DateTime  @default(now())
+
+  channel Channel @relation(fields: [channel_id], references: [channel_id])
+  member  Member  @relation(fields: [member_id], references: [member_id])
+
+  @@unique([channel_id, member_id])
+}
+
+model Message {
+  message_id Int      @id @default(autoincrement())
+  content    String
+  deleted    Boolean  @default(false)
+  modify     Boolean  @default(false)
+  created_at DateTime @default(now())
+  user_id    String?
+  channel_id Int?
+
+  user     User?     @relation(fields: [user_id], references: [id])
+  channel  Channel?  @relation(fields: [channel_id], references: [channel_id])
+  mentions Mention[]
+}
+
+model Mention {
+  mention_id Int @id @default(autoincrement())
+  message_id Int
+  user_id    String
+
+  message Message @relation(fields: [message_id], references: [message_id])
+  user    User    @relation(fields: [user_id], references: [id])
+
+  @@unique([message_id, user_id])
+}
