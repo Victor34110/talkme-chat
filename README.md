@@ -118,8 +118,8 @@ Le projet permet de communiquer en temps réel au sein de **serveurs** et **chan
 ### 1️⃣ Cloner le dépôt et installer les dépendances
 
 ```bash
-git clone https://github.com/EpitechMscProPromo2028/T-JSF-600-MPL_11.git
-cd T-JSF-600-MPL_11
+git clone git@github.com:Victor34110/talkme-chat.git
+cd talkme-chat
 pnpm install
 ```
 
