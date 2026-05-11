@@ -242,3 +242,4 @@ Communication temps réel via **Socket.IO**.
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0e75b6&height=120&section=footer" />
 </p>
+
